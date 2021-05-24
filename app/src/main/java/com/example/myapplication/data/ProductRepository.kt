@@ -1,5 +1,8 @@
 package com.example.myapplication.data
 
+import android.app.Application
+import android.util.Log
+import com.example.myapplication.LOG_TAG
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -7,11 +10,13 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 const val BASE_ENDPOINT_URL = "https://2873199.youcanlearnit.net/"
 
-class ProductRepository {
+class ProductRepository(private val app: Application) {
+
+    private val moshi: Moshi by lazy {
+        Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    }
 
     private val retrofit: Retrofit by lazy {
-        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-
         Retrofit.Builder()
             .baseUrl(BASE_ENDPOINT_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
@@ -24,9 +29,10 @@ class ProductRepository {
 
     suspend fun getProducts(): List<Product> {
         val response = productApi.getProducts()
-        return if (response.isSuccessful)
+        return if (response.isSuccessful) {
+            Log.i(LOG_TAG, "loaded from webservice")
             response.body() ?: emptyList()
-        else
+        } else
             emptyList()
     }
 

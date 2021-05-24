@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Two Trees Olive Oil</string>
+    <string name="description_text">
+        Through each generation we’ve adapted and evolved, always keeping our sights set on creating
+        the highest quality olive oil, while balancing our time-honored traditions with new
+        innovative techniques.\n\n
+        We’re passionate, even obsessive, about environmental sustainability,
+        and we’re constantly looking to find ways to decrease our footprint on mother earth.\n\n
+        We also share a strong sense of community with our customers, fellow farmers, and our beloved Santa
+        Rosa neighbors who have embraced our business for many decades. Our high ethical standards
+        and well-defined values are central to everything we do.
+    </string>
+    <string name="enter_label">Enter</string>
+    <string name="home_label">Home</string>
+    <string name="tours_label">Tours</string>
+    <string name="shop_label">Shop</string>
+    <string name="tours_header_label">TOURS</string>
+    <string name="tours_content">Imagine your special event hosted against the sun-drenched
+        backdrop of a 35-acre olive orchard in the beautiful rolling hills of Northern California.
+        Wake up to songbirds flittering about the lush grounds of our 20-room bed and breakfast, and
+        feast on mouth-watering breakfasts made from local, organic ingredients. We’re expert hosts
+        who’ve thrown some monumental parties and hosted a wide range of events from anniversaries,
+        to charity events, to weddings, and much more.
+    </string>
+    <string name="shop_header_label">Our products</string>
+    <string name="shop_button_label">Continue Shopping</string>
+    <string name="cart_content">Don’t forget about using the coupon codes you’ll
+        find around our website. They change frequently, but are always a great bargain… if we
+        do say so ourselves. If you have any questions, don’t hesitate to reach out. We love
+        helping our customers.
+    </string>
+    <string name="bottle_image">Image of the olive oil bottle</string>
+    <string name="product_size_label">%d ml bottle</string>
+    <string name="product_image_label">Bottle of olive oil</string>
+    <string name="add_to_cart_label">Add to Cart</string>
+</resources>

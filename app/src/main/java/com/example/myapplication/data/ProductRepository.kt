@@ -30,6 +30,12 @@ class ProductRepository(private val app: Application) {
     }
 
     suspend fun getProducts(): List<Product> {
+        val productsFromCache = readDataFromFile()
+        if (productsFromCache.isNotEmpty()) {
+            Log.i(LOG_TAG, "loaded from cache")
+            return productsFromCache
+        }
+
         val response = productApi.getProducts()
         return if (response.isSuccessful) {
             Log.i(LOG_TAG, "loaded from webservice")
@@ -48,6 +54,18 @@ class ProductRepository(private val app: Application) {
 
         val file = File(app.cacheDir, "products.json")
         file.writeText(fileContents)
+    }
+
+    private fun readDataFromFile(): List<Product> {
+        val file = File(app.cacheDir, "products.json")
+        val json = if (file.exists()) file.readText() else null
+
+        return if (json == null)
+            emptyList()
+        else {
+            val listType = Types.newParameterizedType(List::class.java, Product::class.java)
+            moshi.adapter<List<Product>>(listType).fromJson(json) ?: emptyList()
+        }
     }
 
 }

@@ -33,4 +33,5 @@
     <string name="product_size_label">%d ml bottle</string>
     <string name="product_image_label">Bottle of olive oil</string>
     <string name="add_to_cart_label">Add to Cart</string>
+    <string name="storage_permission_granted">Storage permission granted!</string>
 </resources>

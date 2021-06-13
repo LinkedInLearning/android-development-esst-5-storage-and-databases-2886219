@@ -1,7 +1,10 @@
 package com.example.myapplication.data
 
+import android.Manifest
 import android.app.Application
+import android.content.pm.PackageManager
 import android.util.Log
+import androidx.core.content.ContextCompat
 import com.example.myapplication.LOG_TAG
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
@@ -48,16 +51,27 @@ class ProductRepository(private val app: Application) {
     }
 
     private fun storeDataInFile(products: List<Product>?) {
-        val listType = Types.newParameterizedType(List::class.java, Product::class.java)
-        val fileContents = moshi.adapter<List<Product>>(listType)
-            .toJson(products)
+        if (ContextCompat.checkSelfPermission(
+                app,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED) {
+            val listType = Types.newParameterizedType(List::class.java, Product::class.java)
+            val fileContents = moshi.adapter<List<Product>>(listType)
+                .toJson(products)
 
-        val file = File(app.cacheDir, "products.json")
-        file.writeText(fileContents)
+            val file = File(
+                app.getExternalFilesDir("products"),
+                "products.json"
+            )
+            file.writeText(fileContents)
+        }
     }
 
     private fun readDataFromFile(): List<Product> {
-        val file = File(app.cacheDir, "products.json")
+        val file = File(
+            app.getExternalFilesDir("products"),
+            "products.json"
+        )
         val json = if (file.exists()) file.readText() else null
 
         return if (json == null)

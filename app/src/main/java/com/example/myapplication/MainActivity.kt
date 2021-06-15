@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.NavHostFragment
@@ -24,6 +25,11 @@ class MainActivity : FragmentActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.container) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavigation.setupWithNavController(navController)
+
+        viewModel.quantity.observe(this, {
+            Log.i(LOG_TAG, "updating the badge with this count: $it")
+            updateBadge(it)
+        })
     }
 
     private fun updateBadge(count: Int) {

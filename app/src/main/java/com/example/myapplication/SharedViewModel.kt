@@ -15,4 +15,10 @@ class SharedViewModel(app: Application) : AndroidViewModel(app) {
         val data = productRepository.getProducts()
         emit(data)
     }
+
+    val quantity: MutableLiveData<Int> = MutableLiveData(0)
+
+    fun incrementQuantity() {
+        quantity.value = quantity.value!! + 1
+    }
 }

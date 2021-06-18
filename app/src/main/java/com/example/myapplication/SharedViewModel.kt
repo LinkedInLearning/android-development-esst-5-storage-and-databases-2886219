@@ -5,7 +5,7 @@ import androidx.lifecycle.*
 import com.example.myapplication.data.Product
 import com.example.myapplication.data.ProductRepository
 
-class SharedViewModel(app: Application) : AndroidViewModel(app) {
+class SharedViewModel(val app: Application) : AndroidViewModel(app) {
 
     var productRepository: ProductRepository = ProductRepository(app)
 

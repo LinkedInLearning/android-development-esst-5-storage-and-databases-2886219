@@ -32,6 +32,7 @@
     <string name="bottle_image">Image of the olive oil bottle</string>
     <string name="product_size_label">%d ml bottle</string>
     <string name="product_image_label">Bottle of olive oil</string>
-    <string name="add_to_cart_label">Add to Cart</string>
+    <string name="add_to_cart_label">(+) Add</string>
     <string name="storage_permission_granted">Storage permission granted!</string>
+    <string name="remove_from_cart_label">(-) Remove</string>
 </resources>

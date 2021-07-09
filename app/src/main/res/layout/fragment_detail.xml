@@ -81,15 +81,12 @@
 
     <TextView
         android:id="@+id/priceText"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_margin="16dp"
         android:textStyle="bold"
         android:textSize="28sp"
         android:textColor="@android:color/black"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sizeText"
         tools:text="$24.50" />
@@ -102,7 +99,17 @@
         android:backgroundTint="@color/colorAccent"
         android:text="@string/add_to_cart_label"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/priceText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/sizeText" />
+
+    <Button
+        android:id="@+id/removeFromCartButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/colorGrey"
+        android:text="@string/remove_from_cart_label"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addToCartButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

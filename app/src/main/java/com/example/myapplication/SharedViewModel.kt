@@ -30,7 +30,7 @@ class SharedViewModel(val app: Application) : AndroidViewModel(app) {
         emit(data)
     }
 
-    val quantity: LiveData<Int> = app.dataStore.data.map {
+    val quantity: LiveData<Int?> = app.dataStore.data.map {
         it[NUM_BOTTLES] ?: 0
     }.asLiveData()
 
@@ -39,6 +39,17 @@ class SharedViewModel(val app: Application) : AndroidViewModel(app) {
             app.dataStore.edit {
                 val currentValue = it[NUM_BOTTLES] ?: 0
                 it[NUM_BOTTLES] = currentValue + 1
+            }
+        }
+    }
+
+    fun decrementQuantity() {
+        viewModelScope.launch {
+            app.dataStore.edit {
+                val currentValue = it[NUM_BOTTLES] ?: 0
+                if (currentValue > 0) {
+                    it[NUM_BOTTLES] = currentValue - 1
+                }
             }
         }
     }

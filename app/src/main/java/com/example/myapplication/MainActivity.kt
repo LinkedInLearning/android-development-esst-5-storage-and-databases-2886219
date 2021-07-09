@@ -27,8 +27,10 @@ class MainActivity : FragmentActivity() {
         binding.bottomNavigation.setupWithNavController(navController)
 
         viewModel.quantity.observe(this, {
-            Log.i(LOG_TAG, "updating the badge with this count: $it")
-            updateBadge(it)
+            if (it != null) {
+                Log.i(LOG_TAG, "updating the badge with this count: $it")
+                updateBadge(it)
+            }
         })
     }
 

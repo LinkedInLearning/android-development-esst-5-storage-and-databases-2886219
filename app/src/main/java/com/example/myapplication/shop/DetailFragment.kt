@@ -52,6 +52,11 @@ class DetailFragment : Fragment() {
             Log.i(LOG_TAG, "clicked the add to cart button")
             viewModel.incrementQuantity()
         }
+
+        binding.removeFromCartButton.setOnClickListener {
+            Log.i(LOG_TAG, "clicked the remove from cart button")
+            viewModel.decrementQuantity()
+        }
     }
 
     override fun onDestroyView() {

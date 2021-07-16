@@ -32,22 +32,25 @@ class ProductRepository(private val app: Application) {
         retrofit.create(ProductApi::class.java)
     }
 
-    suspend fun getProducts(): List<Product> {
-        val productsFromCache = readDataFromFile()
-        if (productsFromCache.isNotEmpty()) {
-            Log.i(LOG_TAG, "loaded from cache")
-            return productsFromCache
-        }
+    private val productDao = ProductDatabase.getDatabase(app)
+        .productDao()
 
+    suspend fun getProducts(): List<Product> {
         val response = productApi.getProducts()
         return if (response.isSuccessful) {
             Log.i(LOG_TAG, "loaded from webservice")
             val products = response.body() ?: emptyList()
-            storeDataInFile(products)
+            storeDataInDb(products)
 
             products
         } else
             emptyList()
+    }
+
+    private suspend fun storeDataInDb(products: List<Product>?) {
+        if (products != null) {
+            productDao.insertProducts(products)
+        }
     }
 
     private fun storeDataInFile(products: List<Product>?) {

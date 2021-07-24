@@ -25,14 +25,18 @@ class SharedViewModel(val app: Application) : AndroidViewModel(app) {
 
     val selectedProduct: MutableLiveData<Product> = MutableLiveData()
 
-    val products: LiveData<List<Product>> = liveData {
-        val data = productRepository.getProducts()
-        emit(data)
-    }
+    val products: LiveData<List<Product>> =
+        productRepository.getProducts().asLiveData()
 
     val quantity: LiveData<Int?> = app.dataStore.data.map {
         it[NUM_BOTTLES] ?: 0
     }.asLiveData()
+
+    init {
+        viewModelScope.launch {
+            productRepository.loadProducts()
+        }
+    }
 
     fun incrementQuantity() {
         viewModelScope.launch {

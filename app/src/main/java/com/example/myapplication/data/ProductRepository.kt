@@ -9,6 +9,7 @@ import com.example.myapplication.LOG_TAG
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.coroutines.flow.Flow
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.File
@@ -35,53 +36,24 @@ class ProductRepository(private val app: Application) {
     private val productDao = ProductDatabase.getDatabase(app)
         .productDao()
 
-    suspend fun getProducts(): List<Product> {
-        val response = productApi.getProducts()
-        return if (response.isSuccessful) {
-            Log.i(LOG_TAG, "loaded from webservice")
-            val products = response.body() ?: emptyList()
-            storeDataInDb(products)
+    fun getProducts(): Flow<List<Product>> {
+        return productDao.getProducts()
+    }
 
-            products
-        } else
-            emptyList()
+    suspend fun loadProducts() {
+        if (productDao.getCount() <= 0) {
+            val response = productApi.getProducts()
+            if (response.isSuccessful) {
+                Log.i(LOG_TAG, "loaded from webservice")
+                val products = response.body() ?: emptyList()
+                storeDataInDb(products)
+            }
+        }
     }
 
     private suspend fun storeDataInDb(products: List<Product>?) {
         if (products != null) {
             productDao.insertProducts(products)
-        }
-    }
-
-    private fun storeDataInFile(products: List<Product>?) {
-        if (ContextCompat.checkSelfPermission(
-                app,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED) {
-            val listType = Types.newParameterizedType(List::class.java, Product::class.java)
-            val fileContents = moshi.adapter<List<Product>>(listType)
-                .toJson(products)
-
-            val file = File(
-                app.getExternalFilesDir("products"),
-                "products.json"
-            )
-            file.writeText(fileContents)
-        }
-    }
-
-    private fun readDataFromFile(): List<Product> {
-        val file = File(
-            app.getExternalFilesDir("products"),
-            "products.json"
-        )
-        val json = if (file.exists()) file.readText() else null
-
-        return if (json == null)
-            emptyList()
-        else {
-            val listType = Types.newParameterizedType(List::class.java, Product::class.java)
-            moshi.adapter<List<Product>>(listType).fromJson(json) ?: emptyList()
         }
     }
 

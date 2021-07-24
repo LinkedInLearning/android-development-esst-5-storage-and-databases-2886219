@@ -36,11 +36,11 @@ class ProductRepository(app: Application) {
     }
 
     fun getTotalQuantity(): Flow<Int> {
-        TODO("call the Dao")
+        return productDao.getTotalQuantity()
     }
 
     suspend fun updateProduct(product: Product) {
-        TODO("call the Dao")
+        productDao.updateProduct(product)
     }
 
     suspend fun loadProducts() {

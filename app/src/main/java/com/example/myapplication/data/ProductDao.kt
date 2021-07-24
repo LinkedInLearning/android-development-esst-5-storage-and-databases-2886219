@@ -9,10 +9,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ProductDao {
 
-    // TODO: Add the correct annotation
+    @Query("SELECT SUM(quantity) FROM products")
     fun getTotalQuantity(): Flow<Int>
 
-    // TODO: Add the correct annotation
+    @Update
     suspend fun updateProduct(product: Product)
 
     @Query("SELECT COUNT(*) FROM products")

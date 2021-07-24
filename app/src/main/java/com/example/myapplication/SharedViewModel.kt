@@ -15,10 +15,6 @@ class SharedViewModel(val app: Application) : AndroidViewModel(app) {
     val products: LiveData<List<Product>> =
         productRepository.getProducts().asLiveData()
 
-//    val quantity: LiveData<Int?> = app.dataStore.data.map {
-//        it[NUM_BOTTLES] ?: 0
-//    }.asLiveData()
-
     val quantity: LiveData<Int?> =
         productRepository.getTotalQuantity().asLiveData()
 

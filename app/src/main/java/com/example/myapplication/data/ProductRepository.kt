@@ -1,22 +1,17 @@
 package com.example.myapplication.data
 
-import android.Manifest
 import android.app.Application
-import android.content.pm.PackageManager
 import android.util.Log
-import androidx.core.content.ContextCompat
 import com.example.myapplication.LOG_TAG
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.io.File
 
 const val BASE_ENDPOINT_URL = "https://2873199.youcanlearnit.net/"
 
-class ProductRepository(private val app: Application) {
+class ProductRepository(app: Application) {
 
     private val moshi: Moshi by lazy {
         Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
@@ -38,6 +33,14 @@ class ProductRepository(private val app: Application) {
 
     fun getProducts(): Flow<List<Product>> {
         return productDao.getProducts()
+    }
+
+    fun getTotalQuantity(): Flow<Int> {
+        TODO("call the Dao")
+    }
+
+    suspend fun updateProduct(product: Product) {
+        TODO("call the Dao")
     }
 
     suspend fun loadProducts() {

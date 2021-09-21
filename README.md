@@ -39,6 +39,6 @@ _Software Developer, Speaker, Author_
 
 Check out my other courses on [LinkedIn Learning](https://www.linkedin.com/learning/instructors/annyce-davis).
 
-[lil-course-url]: https://www.linkedin.com/learning/android-development-essential-training-4-working-with-data
+[lil-course-url]: https://www.linkedin.com/learning/android-development-essential-training-5-storage-and-databases/
 [lil-thumbnail-url]: https://cdn.lynda.com/course/2873199/2873199-1623865939368-16x9.jpg
 
